@@ -4,11 +4,6 @@
    SUPABASE + WEBSITE FUNCTIONS
 ===================================================== */
 
-
-/* =====================================================
-   SUPABASE CONFIGURATION
-===================================================== */
-
 const SUPABASE_URL =
     "https://qwwrusjteykwsfeplutt.supabase.co";
 
@@ -23,7 +18,6 @@ const supabaseClient =
 
 
 document.addEventListener("DOMContentLoaded", () => {
-
 
     /* =====================================================
        MOBILE MENU
@@ -84,7 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     .value
                     .trim();
 
-
             if (loginValue === "" || password === "") {
 
                 alert(
@@ -93,9 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 return;
             }
-
-
-            /* Current setup uses Email + Password */
 
             if (!loginValue.includes("@")) {
 
@@ -106,16 +96,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-
             const { data, error } =
                 await supabaseClient.auth.signInWithPassword({
 
                     email: loginValue,
-
                     password: password
 
                 });
-
 
             if (error) {
 
@@ -132,7 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-
             if (!data.user) {
 
                 alert(
@@ -142,12 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-
             const userId =
                 data.user.id;
-
-
-            /* Get existing login count */
 
             const { data: member, error: memberError } =
                 await supabaseClient
@@ -155,7 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     .select("login_count")
                     .eq("id", userId)
                     .single();
-
 
             if (memberError) {
 
@@ -174,12 +155,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-
             const newLoginCount =
                 Number(member.login_count || 0) + 1;
-
-
-            /* Update login information */
 
             const { error: updateError } =
                 await supabaseClient
@@ -195,7 +172,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     })
                     .eq("id", userId);
 
-
             if (updateError) {
 
                 console.error(
@@ -205,12 +181,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-
             alert(
                 "Login successful! ❤️\n\n" +
                 "Welcome to Ronaldo Fans Club Ultadanga."
             );
-
 
             loginForm.reset();
 
@@ -220,12 +194,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       JOIN OUR COMMUNITY — SUPABASE
+       JOIN OUR COMMUNITY — SUPABASE + WHATSAPP
     ===================================================== */
 
     const joinForm =
         document.getElementById("joinForm");
-
 
     if (joinForm) {
 
@@ -233,10 +206,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             event.preventDefault();
 
-
             const inputs =
                 joinForm.querySelectorAll("input");
-
 
             const name =
                 inputs[0].value.trim();
@@ -301,7 +272,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 await supabaseClient.auth.signUp({
 
                     email: email,
-
                     password: password
 
                 });
@@ -334,15 +304,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             /*
-             * If email confirmation is enabled,
-             * session will be null.
+             * EMAIL CONFIRMATION
+             * WhatsApp will also open here.
              */
 
             if (!data.session) {
 
                 alert(
-                    "Account created successfully!\n\n" +
-                    "Please confirm your email and then login."
+                    "Account created successfully! ❤️\n\n" +
+                    "Please confirm your email.\n\n" +
+                    "Opening WhatsApp..."
+                );
+
+                const whatsappNumber =
+                    "916296277118";
+
+                const whatsappMessage =
+                    "Hello Ronaldo Fans Club Ultadanga! ❤️\n\n" +
+                    "I have successfully joined the community.\n\n" +
+                    "Name: " + name + "\n" +
+                    "Mobile: " + mobile + "\n" +
+                    "Email: " + email + "\n" +
+                    "Age: " + age + "\n\n" +
+                    "Thank you! ❤️";
+
+                const whatsappURL =
+                    "https://wa.me/" +
+                    whatsappNumber +
+                    "?text=" +
+                    encodeURIComponent(
+                        whatsappMessage
+                    );
+
+                window.open(
+                    whatsappURL,
+                    "_blank",
+                    "noopener,noreferrer"
                 );
 
                 joinForm.reset();
@@ -397,6 +394,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
+            /* Registration successful */
+
             alert(
                 "Welcome to Ronaldo Fans Club Ultadanga, " +
                 name +
@@ -405,8 +404,33 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-            joinForm.reset();
+            /* =================================================
+               JOIN NOW → WHATSAPP
+            ================================================= */
 
+            const whatsappNumber =
+                "916296277118";
+
+            const whatsappMessage =
+                "Hello Ronaldo Fans Club Ultadanga! ❤️\n\n" +
+                "I have successfully joined the community.\n\n" +
+                "Name: " + name + "\n" +
+                "Mobile: " + mobile + "\n" +
+                "Email: " + email + "\n" +
+                "Age: " + age + "\n\n" +
+                "Thank you! ❤️";
+
+            const whatsappURL =
+                "https://wa.me/" +
+                whatsappNumber +
+                "?text=" +
+                encodeURIComponent(
+                    whatsappMessage
+                );
+
+            window.location.href = whatsappURL;
+
+        
         });
 
     }
@@ -421,14 +445,12 @@ document.addEventListener("DOMContentLoaded", () => {
             ".faq-question"
         );
 
-
     faqQuestions.forEach(question => {
 
         question.addEventListener("click", () => {
 
             const currentItem =
                 question.parentElement;
-
 
             document
                 .querySelectorAll(".faq-item")
@@ -443,7 +465,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
 
                 });
-
 
             currentItem.classList.toggle(
                 "active"
@@ -493,7 +514,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "checkoutBtn"
         );
 
-
     let cart = [];
 
 
@@ -510,7 +530,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const size =
                     shirtSize.value;
 
-
                 if (size === "") {
 
                     alert(
@@ -519,7 +538,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     return;
                 }
-
 
                 const product = {
 
@@ -537,14 +555,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 };
 
-
                 const existingProduct =
                     cart.find(
                         item =>
                             item.name === product.name &&
                             item.size === product.size
                     );
-
 
                 if (existingProduct) {
 
@@ -556,9 +572,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
-
                 updateCart();
-
                 openCart();
 
             }
@@ -579,9 +593,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-
         cartItems.innerHTML = "";
-
 
         if (cart.length === 0) {
 
@@ -596,9 +608,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
         let total = 0;
-
 
         cart.forEach(
             (item, index) => {
@@ -607,19 +617,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     item.price *
                     item.quantity;
 
-
                 total += itemTotal;
-
 
                 const cartItem =
                     document.createElement(
                         "div"
                     );
 
-
                 cartItem.className =
                     "cart-item";
-
 
                 cartItem.innerHTML = `
 
@@ -670,7 +676,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             </div>
 
-
                             <button
                                 class="remove-cart-item"
                                 data-index="${index}"
@@ -693,14 +698,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 `;
 
-
                 cartItems.appendChild(
                     cartItem
                 );
 
             }
         );
-
 
         cartTotal.textContent =
             "₹" + total;
@@ -798,16 +801,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-
                 let message =
-                    "Hello Ronaldo Fans Club Ultadanga! ❤️\n\n";
+                    "Hello Ronaldians of Bengal! ❤️\n\n";
 
                 message +=
                     "I want to order:\n\n";
 
-
                 let total = 0;
-
 
                 cart.forEach(item => {
 
@@ -815,9 +815,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         item.price *
                         item.quantity;
 
-
                     total += itemTotal;
-
 
                     message +=
                         "Product: " +
@@ -841,22 +839,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 });
 
-
                 message +=
                     "Total: ₹" +
                     total;
 
-
-                /*
-                 * Replace with your real WhatsApp number.
-                 *
-                 * Example:
-                 * 919876543210
-                 */
-
                 const whatsappNumber =
-                    "919XXXXXXXXX";
-
+                    "916296277118";
 
                 const whatsappURL =
                     "https://wa.me/" +
@@ -866,10 +854,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         message
                     );
 
-
                 window.open(
                     whatsappURL,
-                    "_blank"
+                    "_blank",
+                    "noopener,noreferrer"
                 );
 
             }
@@ -906,17 +894,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-
         qrModal.classList.add(
             "show"
         );
-
 
         qrModal.setAttribute(
             "aria-hidden",
             "false"
         );
-
 
         document.body.classList.add(
             "qr-open"
@@ -933,17 +918,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-
         qrModal.classList.remove(
             "show"
         );
-
 
         qrModal.setAttribute(
             "aria-hidden",
             "true"
         );
-
 
         document.body.classList.remove(
             "qr-open"
@@ -1026,7 +1008,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "reviewForm"
         );
 
-
     if (reviewForm) {
 
         reviewForm.addEventListener(
@@ -1035,7 +1016,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 event.preventDefault();
 
-
                 const name =
                     reviewForm
                         .querySelector(
@@ -1043,7 +1023,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         )
                         .value
                         .trim();
-
 
                 if (name === "") {
 
@@ -1054,14 +1033,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-
                 alert(
                     "Thank you, " +
                     name +
                     "! ⭐\n\n" +
                     "Your review has been submitted."
                 );
-
 
                 reviewForm.reset();
 
@@ -1080,7 +1057,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "contactForm"
         );
 
-
     if (contactForm) {
 
         contactForm.addEventListener(
@@ -1089,12 +1065,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 event.preventDefault();
 
-
                 alert(
-                    "Thank you for contacting Ronaldo Fans Club Ultadanga! ❤️\n\n" +
+                    "Thank you for contacting Ronaldians of Bengal! ❤️\n\n" +
                     "We will get back to you soon."
                 );
-
 
                 contactForm.reset();
 
@@ -1113,7 +1087,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "backToTop"
         );
 
-
     window.addEventListener(
         "scroll",
         () => {
@@ -1123,7 +1096,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
 
             }
-
 
             if (
                 window.scrollY > 500
@@ -1179,13 +1151,11 @@ document.addEventListener("DOMContentLoaded", () => {
             ".navbar nav a"
         );
 
-
     window.addEventListener(
         "scroll",
         () => {
 
             let currentSection = "";
-
 
             sections.forEach(
                 section => {
@@ -1196,7 +1166,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const sectionHeight =
                         section.offsetHeight;
-
 
                     if (
                         window.scrollY >=
@@ -1216,14 +1185,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             );
 
-
             navLinks.forEach(
                 link => {
 
                     link.classList.remove(
                         "active"
                     );
-
 
                     if (
                         link.getAttribute(
@@ -1262,7 +1229,6 @@ document.addEventListener("DOMContentLoaded", () => {
             ".helping-container"
         );
 
-
     if (
         "IntersectionObserver"
         in window
@@ -1285,7 +1251,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                 entry.target.style.transform =
                                     "translateY(0)";
 
-
                                 revealObserver.unobserve(
                                     entry.target
                                 );
@@ -1301,7 +1266,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             );
 
-
         revealElements.forEach(
             element => {
 
@@ -1313,7 +1277,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 element.style.transition =
                     "opacity 0.7s ease, transform 0.7s ease";
-
 
                 revealObserver.observe(
                     element
