@@ -336,13 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         whatsappMessage
                     );
 
-                window.open(
-                    whatsappURL,
-                    "_blank",
-                    "noopener,noreferrer"
-                );
-
-                joinForm.reset();
+                window.location.href = whatsappURL;
 
                 return;
             }
@@ -430,7 +424,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             window.location.href = whatsappURL;
 
-        
         });
 
     }
@@ -801,11 +794,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
+
                 let message =
                     "Hello Ronaldians of Bengal! ❤️\n\n";
 
                 message +=
-                    "I want to order:\n\n";
+                    "🛒 NEW T-SHIRT ORDER\n\n";
 
                 let total = 0;
 
@@ -818,33 +812,80 @@ document.addEventListener("DOMContentLoaded", () => {
                     total += itemTotal;
 
                     message +=
-                        "Product: " +
+                        "👕 Product: " +
                         item.name +
                         "\n";
 
                     message +=
-                        "Size: " +
+                        "📏 Size: " +
                         item.size +
                         "\n";
 
                     message +=
-                        "Quantity: " +
+                        "🔢 Quantity: " +
                         item.quantity +
                         "\n";
 
                     message +=
-                        "Price: ₹" +
+                        "💰 Price: ₹" +
                         itemTotal +
                         "\n\n";
 
                 });
 
                 message +=
-                    "Total: ₹" +
+                    "💵 Total: ₹" +
                     total;
 
+
+                const customerName =
+                    prompt("Enter your name:");
+
+                if (
+                    !customerName ||
+                    customerName.trim() === ""
+                ) {
+
+                    alert(
+                        "Please enter your name to place the order."
+                    );
+
+                    return;
+                }
+
+
+                const customerMobile =
+                    prompt("Enter your mobile number:");
+
+                if (
+                    !customerMobile ||
+                    customerMobile.trim() === ""
+                ) {
+
+                    alert(
+                        "Please enter your mobile number to place the order."
+                    );
+
+                    return;
+                }
+
+
+                message +=
+                    "\n\n👤 CUSTOMER DETAILS\n" +
+                    "Name: " +
+                    customerName.trim() +
+                    "\n" +
+                    "📱 Mobile: " +
+                    customerMobile.trim();
+
+                message +=
+                    "\n\nPlease confirm my order. ❤️";
+
+
+                /* T-SHIRT ORDER WHATSAPP NUMBER */
+
                 const whatsappNumber =
-                    "916296277118";
+                    "919163398371";
 
                 const whatsappURL =
                     "https://wa.me/" +
@@ -854,11 +895,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         message
                     );
 
-                window.open(
-                    whatsappURL,
-                    "_blank",
-                    "noopener,noreferrer"
-                );
+
+                window.location.href =
+                    whatsappURL;
 
             }
         );
