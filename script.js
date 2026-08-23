@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "916296277118";
 
                 const whatsappMessage =
-                    "Hello Ronaldo Fans Club Ultadanga! ❤️\n\n" +
+                    "Hello Ronaldians of Bengal! ❤️\n\n" +
                     "I have successfully joined the community.\n\n" +
                     "Name: " + name + "\n" +
                     "Mobile: " + mobile + "\n" +
@@ -391,7 +391,7 @@ document.addEventListener("DOMContentLoaded", () => {
             /* Registration successful */
 
             alert(
-                "Welcome to Ronaldo Fans Club Ultadanga, " +
+                "Welcome to Ronaldians of Bengal, " +
                 name +
                 "! ❤️\n\n" +
                 "Your community account has been created successfully."
@@ -406,7 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "916296277118";
 
             const whatsappMessage =
-                "Hello Ronaldo Fans Club Ultadanga! ❤️\n\n" +
+                "Hello Ronaldians of Bengal! ❤️\n\n" +
                 "I have successfully joined the community.\n\n" +
                 "Name: " + name + "\n" +
                 "Mobile: " + mobile + "\n" +
